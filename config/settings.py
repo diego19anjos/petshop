@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9j!#ph!@x)#t-rl2qvs3@n3pr+bdn@l!sr^0@iv7t4=l)(s%or
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['petshop-production-662d.up.railway.app', 'localhost', '127.0.0.1']
 
 LOGIN_URL = 'login'
 
