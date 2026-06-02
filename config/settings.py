@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9j!#ph!@x)#t-rl2qvs3@n3pr+bdn@l!sr^0@iv7t4=l)(s%or'
+# O decouple vai buscar a chave no servidor. Se não achar, usa a sua local de teste.
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-suachavelocal...')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Desativa o modo de depuração na internet para ninguém ver seus erros de código
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+# Permite que o link gerado pelo Railway acesse o projeto
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = 'login'
 
@@ -92,11 +94,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'petshop_db',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': config('DB_NAME', default='petshop_db'),
+        'USER': config('DB_USER', default='root'),
+        'PASSWORD': config('DB_PASSWORD', default='123456'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='3306'),
     }
 }
 
