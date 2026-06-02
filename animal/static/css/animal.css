@@ -1,0 +1,205 @@
+/* ==========================================================================
+   ESTILOS GERAIS DE ANIMAIS (CADASTRO E LISTAGEM)
+   ========================================================================== */
+
+/* --- COMPONENTES DE FORMULÁRIO (CADASTRO) --- */
+.container-form {
+    max-width: 650px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container-form h2 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+.container-form p {
+    color: #747d8c;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+.formulario-padrao .form-group {
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-padrao label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+.formulario-padrao input[type="text"],
+.formulario-padrao input[type="number"],
+.formulario-padrao input[type="date"],
+.formulario-padrao select,
+.formulario-padrao textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #2f3542;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formulario-padrao input:focus,
+.formulario-padrao select:focus,
+.formulario-padrao textarea:focus {
+    border-color: #ff7f50;
+    box-shadow: 0 0 0 3px rgba(255, 127, 80, 0.15);
+    outline: none;
+}
+
+.formulario-padrao textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+.erro-campo {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+/* --- COMPONENTES DE LISTAGEM (SEUS PETS) --- */
+.container-dashboard {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-acoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eef2f3;
+    padding-bottom: 15px;
+}
+
+.header-acoes h2 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+/* Organização dos Cards lado a lado */
+.grid-pets {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Estilo do Card do Pet */
+.card-pet {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef2f3;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-pet:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.info-pet h3 {
+    color: #ff7f50;
+    margin: 0 0 15px 0;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #f1f2f6;
+    padding-bottom: 8px;
+}
+
+.info-pet p {
+    margin: 8px 0;
+    color: #57606f;
+    font-size: 0.95rem;
+}
+
+.info-pet strong {
+    color: #2c3e50;
+}
+
+.info-pet .obs {
+    background-color: #fffaf0;
+    border-left: 4px solid #f39c12;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.alerta-vazio {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px dashed #ced4da;
+}
+
+/* --- BOTÕES E ACESSÓRIOS --- */
+.botoes-form {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 35px;
+    border-top: 1px solid #f1f2f6;
+    padding-top: 20px;
+}
+
+.btn-salvar, .btn-primary {
+    background-color: #2ecc71;
+    color: #ffffff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #ff7f50; /* Botão de adicionar pet fica laranja */
+    padding: 10px 20px;
+    font-size: 0.95rem;
+}
+
+.btn-salvar:hover { background-color: #27ae60; }
+.btn-primary:hover { background-color: #ff6348; }
+
+.btn-cancelar {
+    background-color: #747d8c;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancelar:hover { background-color: #57606f; }

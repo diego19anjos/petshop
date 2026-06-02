@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Meu Painel - PetShop Feliz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-dashboard">
+    <div class="boas-vindas">
+        <h2>Olá, {{ user.first_name }}! 👋</h2>
+        <p>Seja bem-vindo ao seu painel. Cuide dos seus amiguinhos aqui.</p>
+    </div>
+
+    <!-- Seção: Meus Pets -->
+    <div class="secao-dashboard">
+        <div class="sub-header">
+            <h3>🐾 Meus Pets</h3>
+            <a href="{% url 'animal:cadastrar' %}" class="btn-pequeno"> + Adicionar Pet</a>
+        </div>
+        <div class="mini-grid-pets">
+            {% for pet in meus_animais %}
+                <div class="mini-card-pet">
+                    <h4>{{ pet.nome_pet }}</h4>
+                    <p>{{ pet.especie }} • {{ pet.raca }}</p>
+                </div>
+            {% empty %}
+                <p class="texto-aviso">Você ainda não cadastrou nenhum pet. <a href="{% url 'animal:cadastrar' %}">Cadastrar agora!</a></p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Seção: Histórico de Agendamentos -->
+    <div class="secao-dashboard">
+        <div class="sub-header">
+            <h3>📅 Meus Agendamentos</h3>
+            <a href="{% url 'agendamento:agendamento' %}" class="btn-pequeno principal"> Agendar Novo Horário</a>
+        </div>
+        <table class="tabela-padrao">
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Pet</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in meus_agendamentos %}
+                    <tr>
+                        <td>{{ agendamento.data|date:"d/m/Y" }} às {{ agendamento.hora }}</td>
+                        <td>{{ agendamento.animal.nome_pet }}</td>
+                        <td>R$ {{ agendamento.valor_total|floatformat:2 }}</td>
+                        <td><span class="badge {{ agendamento.status|lower }}">{{ agendamento.status }}</span></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">Você não realizou nenhum agendamento ainda.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Seção: Perfil do Cliente -->
+    <div class="secao-dashboard">
+        <div class="sub-header">
+            <h3>👤 Meus Dados Cadastrais</h3>
+        </div>
+        <form method="POST" class="form-perfil-dashboard">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="atualizar_perfil">
+            <div class="linha-perfil">
+                <div class="grupo-perfil">
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome_completo" value="{{ cliente.nome_completo }}" required>
+                </div>
+                <div class="grupo-perfil">
+                    <label>E-mail (Login)</label>
+                    <input type="email" value="{{ cliente.email_cliente }}" disabled class="input-desabilitado">
+                </div>
+            </div>
+            <div class="linha-perfil tripla">
+                <div class="grupo-perfil">
+                    <label>CPF</label>
+                    <input type="text" name="cpf" value="{{ cliente.cpf_cliente|default:'' }}">
+                </div>
+                <div class="grupo-perfil">
+                    <label>Telefone</label>
+                    <input type="text" name="telefone" value="{{ cliente.telefone_cliente|default:'' }}">
+                </div>
+                <div class="grupo-perfil">
+                    <label>Endereço Residencial</label>
+                    <input type="text" name="endereco" value="{{ cliente.endereco_cliente|default:'' }}">
+                </div>
+            </div>
+            <div class="alinhamento-botao-perfil">
+                <button type="submit" class="btn-pequeno">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

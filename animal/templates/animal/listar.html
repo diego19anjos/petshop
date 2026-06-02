@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Meus Pets - PetShop Feliz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/animal.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-dashboard">
+    <div class="header-acoes">
+        <h2>🐾 Meus Pets Cadastrados</h2>
+        <a href="{% url 'animal:cadastrar' %}" class="btn-primary">
+            <i class="fas fa-plus"></i> Cadastrar Novo Pet
+        </a>
+    </div>
+
+    {% if pets %}
+        <div class="grid-pets">
+            {% for pet in pets %}
+                <div class="card-pet">
+                    <div class="info-pet">
+                        <h3>{{ pet.nome_pet }}</h3>
+                        <p><strong>Espécie:</strong> {{ pet.especie }}</p>
+                        <p><strong>Raça:</strong> {{ pet.raca }}</p>
+                        <p><strong>Peso:</strong> {{ pet.peso }} kg</p>
+                        <p><strong>Nascimento:</strong> {{ pet.data_nascimento|date:"d/m/Y" }}</p>
+                        {% if pet.observacoes %}
+                            <p class="obs">⚠️ <em>{{ pet.observacoes }}</em></p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alerta-vazio">
+            <p>Você ainda não possui nenhum pet cadastrado.</p>
+            <a href="{% url 'animal:cadastrar' %}">Clique aqui para adicionar seu primeiro amigo!</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

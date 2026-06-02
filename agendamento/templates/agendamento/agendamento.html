@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Agendamento - PetShop Feliz
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/agendamento.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="booking-container">
+
+    <!-- FORM -->
+    <form
+        method="POST"
+        action="{% url 'agendamento:salvar' %}"
+        class="booking-form"
+    >
+
+        {% csrf_token %}
+
+        <h2>🐾 Agendar Atendimento</h2>
+
+        <!-- MENSAGENS -->
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert {{ message.tags }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+        <!-- PET -->
+        <div class="step">
+
+            <label>Escolha seu Pet</label>
+
+            <select
+                name="pet"
+                id="petSelect"
+                class="custom-input"
+                required
+            >
+
+                <option value="">
+                    Selecione um pet
+                </option>
+
+                {% for pet in meus_pets %}
+
+                    <option value="{{ pet.id_animal }}">
+                        {{ pet.nome_pet }} - {{ pet.raca }}
+                    </option>
+
+                {% empty %}
+
+                    <option disabled>
+                        Nenhum pet cadastrado
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <!-- DATA -->
+        <div class="step">
+
+            <label>Data do Atendimento</label>
+
+            <input
+                type="date"
+                name="data"
+                id="agendamentoData"
+                class="custom-input"
+                required
+            >
+
+        </div>
+
+        <!-- HORA -->
+        <div class="step">
+
+            <label>Horário</label>
+
+            <input
+                type="time"
+                name="hora"
+                id="agendamentoHora"
+                class="custom-input"
+                required
+            >
+
+        </div>
+
+        <!-- SERVIÇOS -->
+        <div class="step">
+
+            <label>Serviços</label>
+
+            <div class="services-grid">
+
+                {% for servico in todos_servicos %}
+
+                <label class="service-card">
+
+                    <input
+                        type="checkbox"
+                        name="servicos"
+                        value="{{ servico.id_servico }}"
+                        class="service-checkbox"
+                        data-name="{{ servico.nome_servico }}"
+                        data-price="{{ servico.preco_servico }}"
+                    >
+
+                    <div class="service-content">
+
+                        <h4>
+                            {{ servico.nome_servico }}
+                        </h4>
+
+                        <p>
+                            R$ {{ servico.preco_servico }}
+                        </p>
+
+                    </div>
+
+                </label>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="cta-btn">
+            Confirmar Agendamento
+        </button>
+
+    </form>
+
+    <!-- RESUMO -->
+    <aside class="summary-box">
+
+        <h3>Resumo</h3>
+
+        <div class="summary-item">
+            <strong>Pet:</strong>
+            <span id="summaryPet">---</span>
+        </div>
+
+        <div class="summary-item">
+            <strong>Data:</strong>
+            <span id="summaryDate">---</span>
+        </div>
+
+        <div class="summary-item">
+            <strong>Hora:</strong>
+            <span id="summaryHour">---</span>
+        </div>
+
+        <hr>
+
+        <ul id="summaryServices">
+            <li>Nenhum serviço selecionado</li>
+        </ul>
+
+        <div class="total">
+            <span>Total:</span>
+            <strong id="summaryTotal">
+                R$ 0,00
+            </strong>
+        </div>
+
+    </aside>
+
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/agendamento.js' %}"></script>
+{% endblock %}

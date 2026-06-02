@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+            PetShop Feliz
+        {% endblock %}
+    </title>
+
+    <!-- FONTS -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    >
+
+    <!-- CSS GLOBAL -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pet.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo">
+
+            <a href="{% url 'index' %}">
+                🐾 PetShop Feliz
+            </a>
+
+        </div>
+
+        <nav class="nav-links">
+
+            <!-- PÚBLICO -->
+            <a href="{% url 'index' %}">
+                Home
+            </a>
+
+            <a href="{% url 'servico:listar' %}">
+                Serviços
+            </a>
+
+            <!-- LOGADO -->
+            {% if user.is_authenticated %}
+
+                <a href="{% url 'cliente:dashboard' %}">
+                    Dashboard
+                </a>
+
+                <a href="{% url 'agendamento:agendamento' %}">
+                    Agendamentos
+                </a>
+
+                <a href="{% url 'animal:listar' %}">Meus Pets</a>
+
+                <a href="{% url 'cliente:dashboard' %}">Perfil</a>
+
+                <a
+                    href="{% url 'logout' %}"
+                    class="btn-logout"
+                >
+                    Sair
+                </a>
+
+            <!-- DESLOGADO -->
+            {% else %}
+
+                <a href="{% url 'login' %}">
+                    Entrar
+                </a>
+
+                <a
+                    href="{% url 'login' %}"
+                    class="btn-primary"
+                >
+                    Criar Conta
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+    </header>
+
+    <!-- MESSAGES -->
+    {% if messages %}
+
+        <div class="messages-container">
+
+            {% for message in messages %}
+
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+    <!-- CONTEÚDO -->
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <p>
+            © 2026 PetShop Feliz — Todos os direitos reservados
+        </p>
+
+    </footer>
+
+    <!-- JS -->
+    <script src="{% static 'js/base.js' %}"></script>
+
+    {% block extra_js %}
+    {% endblock %}
+
+</body>
+
+</html>

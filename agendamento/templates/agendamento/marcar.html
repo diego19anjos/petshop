@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Agendar Serviço - PetShop Feliz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/agendamento.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-form">
+    <h2>📅 Agendar Horário</h2>
+    <p>Escolha o pet, selecione os serviços desejados e defina o melhor momento para nos visitar.</p>
+    
+    <form method="POST" class="formulario-padrao">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.animal.id_for_label }}">{{ form.animal.label }}</label>
+            {{ form.animal }}
+            {% if form.animal.errors %}
+                <span class="erro-campo">{{ form.animal.errors.0 }}</span>
+            {% endif %}
+        </div>
+
+        <div class="form-linha-dupla">
+            <div class="form-group">
+                <label for="{{ form.data.id_for_label }}">{{ form.data.label }}</label>
+                {{ form.data }}
+                {% if form.data.errors %}
+                    <span class="erro-campo">{{ form.data.errors.0 }}</span>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.hora.id_for_label }}">{{ form.hora.label }}</label>
+                {{ form.hora }}
+                {% if form.hora.errors %}
+                    <span class="erro-campo">{{ form.hora.errors.0 }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group campo-servicos-checkbox">
+            <label><strong>{{ form.servicos.label }}</strong></label>
+            <div class="lista-checkbox-cards">
+                {{ form.servicos }}
+            </div>
+            {% if form.servicos.errors %}
+                <span class="erro-campo">{{ form.servicos.errors.0 }}</span>
+            {% endif %}
+        </div>
+        
+        <div class="botoes-form">
+            <a href="{% url 'cliente:dashboard' %}" class="btn-cancelar">Voltar para Dashboard</a>
+            <button type="submit" class="btn-salvar">Confirmar Agendamento</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

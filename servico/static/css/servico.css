@@ -1,0 +1,183 @@
+/* ==========================================================================
+   ESTILOS MODERNOS DA VITRINE DE SERVIÇOS
+   ========================================================================== */
+
+.servicos-section {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.titulo-pagina {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.titulo-pagina h1 {
+    font-size: 2.4rem;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+.titulo-pagina p {
+    color: #747d8c;
+    font-size: 1.1rem;
+}
+
+/* Container de Botões de Filtro */
+.filtros-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 45px;
+}
+
+.btn-filtro {
+    background-color: #ffffff;
+    border: 2px solid #eef2f3;
+    padding: 10px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #57606f;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-filtro:hover {
+    border-color: #ff7f50;
+    color: #ff7f50;
+}
+
+.btn-filtro.active {
+    background-color: #ff7f50;
+    border-color: #ff7f50;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 127, 80, 0.25);
+}
+
+/* Grid Organizador de Cards */
+.grid-servicos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Novo Card de Serviço */
+.card-servico {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f2f6;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-servico:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.icone-servico {
+    font-size: 2.2rem;
+    background: #ffeaa7;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-bottom: 22px;
+}
+
+.card-servico h3 {
+    color: #2c3e50;
+    font-size: 1.4rem;
+    margin: 0 0 12px 0;
+}
+
+.card-servico .descricao {
+    color: #57606f;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Checklist Interno de Benefícios */
+.checklist-servico {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Faz com que todos os botões fiquem alinhados no rodapé por igual */
+}
+
+.checklist-servico h4 {
+    margin: 0 0 10px 0;
+    font-size: 0.85rem;
+    color: #a4b0be;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.checklist-servico ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checklist-servico li {
+    font-size: 0.9rem;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checklist-servico li i {
+    color: #2ecc71;
+}
+
+/* Detalhes de Preço e Tempo */
+.detalhes-servico {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #dcdde1;
+    color: #747d8c;
+    font-weight: 600;
+}
+
+.detalhes-servico .preco {
+    color: #2ecc71;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Botão de Agendamento */
+.btn-agendar-servico {
+    display: block;
+    text-align: center;
+    background: #ff7f50;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.btn-agendar-servico:hover {
+    background-color: #ff6348;
+}
+
+.alerta-vazio {
+    text-align: center;
+    padding: 40px;
+    color: #747d8c;
+}

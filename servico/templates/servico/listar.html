@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nossos Serviços - PetShop Feliz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/servico.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="servicos-section">
+    <div class="titulo-pagina">
+        <h1>✂️ Serviços do PetShop Feliz</h1>
+        <p>Oferecemos o que há de melhor em estética, higiene e bem-estar para o seu bichinho.</p>
+    </div>
+
+    <!-- 🏷️ SEÇÃO DE FILTROS MODERNOS (Instantâneo via JavaScript) -->
+    <div class="filtros-container">
+        <button class="btn-filtro active" data-filter="all">✨ Todos os Serviços</button>
+        <button class="btn-filtro" data-filter="caes">🐶 Para Cães</button>
+        <button class="btn-filtro" data-filter="gatos">🐱 Para Gatos</button>
+    </div>
+
+    <div class="grid-servicos">
+        {% for servico in servicos %}
+            <!-- Atribuímos a categoria dinamicamente ou usamos 'caes' como padrão se o modelo ainda for simples -->
+            <div class="card-servico" data-category="{% if 'gato' in servico.nome_servico|lower %}gatos{% else %}caes{% endif %}">
+                
+                <div class="icone-servico">
+                    {% if 'gato' in servico.nome_servico|lower %}🐱{% else %}🐶{% endif %}
+                </div>
+                
+                <h3>{{ servico.nome_servico }}</h3>
+                <p class="descricao">{{ servico.descricao_servico }}</p>
+                
+                <!-- 📋 CHECKLIST DETALHADO DO QUE ESTÁ INCLUSO -->
+                <div class="checklist-servico">
+                    <h4>O que está incluso:</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Produtos Premium Hipoalergênicos</li>
+                        <li><i class="fas fa-check-circle"></i> Limpeza de Ouvidos Segura</li>
+                        <li><i class="fas fa-check-circle"></i> Corte de Unhas Incluso</li>
+                    </ul>
+                </div>
+
+                <div class="detalhes-servico">
+                    <span><i class="far fa-clock"></i> {{ servico.duracao_servico }} min</span>
+                    <span class="preco">R$ {{ servico.preco_servico|floatformat:2 }}</span>
+                </div>
+
+                <!-- Passando o ID por parâmetro GET para automatizar a seleção no agendamento -->
+                <a href="{% url 'agendamento:agendamento' %}?servico_id={{ servico.id_servico }}" class="btn-agendar-servico">
+                    Agendar este Serviço
+                </a>
+            </div>
+        {% empty %}
+            <div class="alerta-vazio">
+                <p>Nenhum serviço disponível no momento.</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Lógica JavaScript para realizar a filtragem dos cards de forma fluida
+    document.addEventListener("DOMContentLoaded", function() {
+        const botoes = document.querySelectorAll(".btn-filtro");
+        const cards = document.querySelectorAll(".card-servico");
+
+        botoes.forEach(botao => {
+            botao.addEventListener("click", function() {
+                botoes.forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+
+                const filtro = this.getAttribute("data-filter");
+
+                cards.forEach(card => {
+                    const categoriaCard = card.getAttribute("data-category");
+                    if (filtro === "all" || categoriaCard === filtro) {
+                        card.style.display = "flex";
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

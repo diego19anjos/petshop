@@ -1,0 +1,417 @@
+/* ==========================================================================
+   ESTILOS EXCLUSIVOS DA HOME PÚBLICA (HOME.CSS)
+   ========================================================================== */
+
+/* Configurações estruturais globais */
+.container-home {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+/* 🎠 CARROSSEL HERO REESTRUTURADO */
+.carousel-section {
+    position: relative;
+    width: 100%;
+    height: calc(85vh - 70px); /* Ocupa quase a tela toda descontando a navbar */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay Escuro para dar contraste nos textos claros */
+.slide .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.3));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10%;
+    color: white;
+    box-sizing: border-box;
+}
+
+.slide .overlay h1 {
+    font-size: 3rem;
+    margin: 0 0 15px 0;
+    font-weight: 800;
+    max-width: 700px;
+    line-height: 1.2;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.slide .overlay p {
+    font-size: 1.25rem;
+    margin: 0 0 30px 0;
+    max-width: 600px;
+    opacity: 0.9;
+}
+
+/* Customização dos botões CTAs no Carrossel */
+.cta-btn {
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    border-radius: 30px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 15px rgba(255, 127, 80, 0.4);
+}
+
+.cta-btn:hover {
+    background-color: #ff6348;
+    transform: translateY(-2px);
+}
+
+.cta-btn.secundario {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    box-shadow: none;
+}
+
+.cta-btn.secundario:hover {
+    background-color: #ffffff;
+    color: #2c3e50;
+}
+
+/* Setas de navegação do carrossel */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2rem;
+    transition: background 0.2s;
+}
+
+.carousel-btn:hover {
+    background: #ff7f50;
+}
+
+.carousel-btn.prev { left: 25px; }
+.carousel-btn.next { right: 25px; }
+
+/* Indicadores de bolinha (Dots) */
+.dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.dot.active {
+    background: #ff7f50;
+    transform: scale(1.2);
+}
+
+/* 🌟 SEÇÃO 2: CARD DE DIFERENCIAIS */
+.titulo-secao {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.titulo-secao h2 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    margin: 0 0 10px 0;
+}
+
+.titulo-secao p {
+    color: #747d8c;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.grid-diferenciais {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card-diferencial {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f2f6;
+    transition: transform 0.3s;
+}
+
+.card-diferencial:hover {
+    transform: translateY(-5px);
+}
+
+.card-diferencial .icone-box {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(255, 127, 80, 0.1);
+    color: #ff7f50;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 25px auto;
+}
+
+.card-diferencial h3 {
+    color: #2c3e50;
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+}
+
+.card-diferencial p {
+    color: #747d8c;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* 📖 SEÇÃO 3: SOBRE NÓS */
+.sobre-nos {
+    background-color: #f8f9fa;
+}
+
+.grid-sobre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.conteudo-sobre .subtitulo {
+    color: #ff7f50;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.conteudo-sobre h2 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    margin: 10px 0 25px 0;
+    line-height: 1.3;
+}
+
+.conteudo-sobre p {
+    color: #57606f;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+}
+
+.metricas-sobre {
+    display: flex;
+    gap: 40px;
+    margin-top: 35px;
+    border-top: 1px solid #ced4da;
+    padding-top: 25px;
+}
+
+.metricas-sobre strong {
+    display: block;
+    font-size: 2.2rem;
+    color: #ff7f50;
+}
+
+.metricas-sobre span {
+    color: #747d8c;
+    font-size: 0.9rem;
+}
+
+.imagem-sobre .moldura-foto {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.imagem-sobre .moldura-foto img {
+    width: 100%;
+    display: block;
+    height: 400px;
+    object-fit: cover;
+}
+
+/* ✉️ SEÇÃO 4: CONTATO SEÇÃO */
+.contato-secao {
+    background-color: #ffffff;
+}
+
+.card-contato-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    background: #2c3e50;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 0;
+}
+
+.info-contato-direto {
+    background-color: #222f3e;
+    padding: 50px;
+    color: white;
+}
+
+.info-contato-direto h3 {
+    font-size: 1.8rem;
+    margin: 0 0 15px 0;
+    color: #ff7f50;
+}
+
+.info-contato-direto p {
+    color: #a4b0be;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+.lista-contato-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lista-contato-info li {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #f1f2f6;
+}
+
+.lista-contato-info li i {
+    color: #ff7f50;
+    font-size: 1.1rem;
+}
+
+.formulario-contato-box {
+    padding: 50px;
+    background-color: white;
+}
+
+.input-grupo-home {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input-grupo-home label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.input-grupo-home input,
+.input-grupo-home textarea {
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.input-grupo-home input:focus,
+.input-grupo-home textarea:focus {
+    border-color: #ff7f50;
+    outline: none;
+}
+
+.input-grupo-home textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.btn-enviar-home {
+    background-color: #ff7f50;
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.btn-enviar-home:hover {
+    background-color: #ff6348;
+}
+
+.feedback-mensagem {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* RESPONSIVIDADE (MOBILE-FRIENDLY) */
+@media (max-width: 992px) {
+    .grid-sobre, .card-contato-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .imagem-sobre {
+        order: -1; /* Joga a imagem pra cima no mobile */
+    }
+    .slide .overlay h1 {
+        font-size: 2.2rem;
+    }
+}

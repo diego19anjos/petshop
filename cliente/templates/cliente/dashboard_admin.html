@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Painel Administrativo - PetShop Feliz{% block title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<style>
+    /* Estilos rápidos para os botões de controle de fila */
+    .btn-status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    .btn-status.concluir { background-color: #2ecc71; }
+    .btn-status.cancelar { background-color: #e74c3c; }
+    .btn-status:hover { opacity: 0.8; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-dashboard">
+    <div class="boas-vindas">
+        <h2>Painel Administrativo 🛠️</h2>
+        <p>Olá, {{ user.first_name|default:"Administrador" }}. Gerenciamento geral do PetShop:</p>
+    </div>
+
+    <!-- Grid de Contadores Card -->
+    <div class="grid-cards-dados">
+        <div class="card-dado faturamento">
+            <h3>Faturamento Total</h3>
+            <p class="valor">R$ {{ faturamento|floatformat:2 }}</p>
+        </div>
+        <div class="card-dado">
+            <h3>Total de Clientes</h3>
+            <p class="numero">{{ total_clientes }}</p>
+        </div>
+        <div class="card-dado">
+            <h3>Pets Cadastrados</h3>
+            <p class="numero">{{ total_animais }}</p>
+        </div>
+        <div class="card-dado">
+            <h3>Agendamentos Totais</h3>
+            <p class="numero">{{ total_agendamentos }}</p>
+        </div>
+    </div>
+
+    <!-- Tabela de Controle de Fila Onde o Funcionário pode Mudar o Status -->
+    <div class="secao-dados">
+        <h3>📋 Controle de Atendimentos Gerais</h3>
+        <table class="tabela-padrao">
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>Cliente</th>
+                    <th>Pet</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>Ações de Controle</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in todos_agendamentos %}
+                    <tr>
+                        <td>{{ agendamento.data|date:"d/m/Y" }} às {{ agendamento.hora }}</td>
+                        <td>{{ agendamento.animal.cliente.nome_completo }}</td>
+                        <td>{{ agendamento.animal.nome_pet }} ({{ agendamento.animal.especie }})</td>
+                        <td>R$ {{ agendamento.valor_total|floatformat:2 }}</td>
+                        <td><span class="badge {{ agendamento.status|lower }}">{{ agendamento.status }}</span></td>
+                        <td>
+                            <!-- Só exibe botões se o atendimento ainda estiver pendente -->
+                            {% if agendamento.status == 'Agendado' %}
+                                <a href="{% url 'cliente:alterar_status' agendamento.id_agendamento 'Concluído' %}" class="btn-status concluir" title="Marcar como concluído">
+                                    <i class="fas fa-check"></i> Concluir
+                                </a>
+                                <a href="{% url 'cliente:alterar_status' agendamento.id_agendamento 'Cancelado' %}" class="btn-status cancelar" title="Cancelar agendamento">
+                                    <i class="fas fa-times"></i> Cancelar
+                                </a>
+                            {% else %}
+                                <span style="color: #a4b0be; font-size: 0.85rem; font-style: italic;">Encerrado</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">Nenhum agendamento registrado no sistema.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

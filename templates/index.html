@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Início - PetShop Feliz{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="carousel-section">
+  <div class="carousel" id="carousel">
+    
+    <div class="slide active" data-index="0">
+      <img src="{% static 'img/imagem_carrossel1.webp' %}" alt="Cachorro feliz">
+      <div class="overlay">
+        <h1>Cuidado completo com amor para seu pet 🐶</h1>
+        <p>Banho, Tosa, Atendimento Veterinário e tudo que seu melhor amigo precisa.</p>
+        <a href="{% url 'agendamento:agendamento' %}" class="cta-btn">Agendar agora</a>
+      </div>
+    </div>
+    
+    <div class="slide" data-index="1">
+      <img src="{% static 'img/imagem_carrossel2.png' %}" alt="Gato no petshop">
+      <div class="overlay">
+        <h1>Seu pet merece o melhor 🐱</h1>
+        <p>Trabalhamos apenas com produtos premium e profissionais altamente qualificados.</p>
+        <a href="{% url 'servico:listar' %}" class="cta-btn secundario">Conheça nossos serviços</a>
+      </div>
+    </div>
+    
+    <div class="slide" data-index="2">
+      <img src="{% static 'img/imagem_carrossel3jpg.jpg' %}" alt="Família com pets">
+      <div class="overlay">
+        <h1>Amor em cada pata 🐾</h1>
+        <p>Construindo conexões de carinho e confiança com as famílias desde 2018.</p>
+        <a href="#sobre" class="cta-btn">Saiba mais sobre nós</a>
+      </div>
+    </div>
+    
+    <button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+    <button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+    <div class="dots" id="dots"></div>
+  </div>
+</section>
+
+<section class="diferenciais container-home">
+    <div class="titulo-secao">
+        <h2>Por que escolher o PetShop Feliz?</h2>
+        <p>Oferecemos uma experiência única focada no bem-estar e na alegria do seu animal.</p>
+    </div>
+    <div class="grid-diferenciais">
+        <div class="card-diferencial">
+            <div class="icone-box"><i class="fas fa-heartbeat"></i></div>
+            <h3>Atendimento Veterinário</h3>
+            <p>Profissionais prontos para consultas preventivas e acompanhamento com carinho dedicado.</p>
+        </div>
+        <div class="card-diferencial">
+            <div class="icone-box"><i class="fas fa-soap"></i></div>
+            <h3>Estética Canina & Felina</h3>
+            <p>Banhos relaxantes, tosa higiênica e profissional utilizando produtos especializados biodegradáveis.</p>
+        </div>
+        <div class="card-diferencial">
+            <div class="icone-box"><i class="fas fa-calendar-check"></i></div>
+            <h3>Agendamento Online</h3>
+            <p>Esqueça chamadas telefônicas. Escolha o serviço, o pet e reserve o horário ideal direto do seu painel.</p>
+        </div>
+    </div>
+</section>
+
+<section class="sobre-nos" id="sobre">
+    <div class="container-home grid-sobre">
+        <div class="conteudo-sobre">
+            <span class="subtitulo">Quem Somos</span>
+            <h2>Mais do que um PetShop, uma família unida pelo amor aos animais</h2>
+            <p>Desde 2018, o PetShop Feliz se dedica a proporcionar cuidados humanizados para cães e gatos de todas as raças e portes. Acreditamos que cada animal possui uma personalidade única e merece ser tratado com paciência, respeito e muito afeto.</p>
+            <p>Nossa infraestrutura foi planejada para garantir total segurança e conforto visual para os bichinhos durante a espera e execução dos procedimentos.</p>
+            <div class="metricas-sobre">
+                <div>
+                    <strong>+5k</strong>
+                    <span>Pets Atendidos</span>
+                </div>
+                <div>
+                    <strong>100%</strong>
+                    <span>Amor Dedicado</span>
+                </div>
+            </div>
+        </div>
+        <div class="imagem-sobre">
+            <div class="moldura-foto">
+                <img src="{% static 'img/imagem_carrossel3jpg.jpg' %}" alt="Nossa equipe cuidando de um pet">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contato-secao" id="contato">
+    <div class="container-home card-contato-wrapper">
+        <div class="info-contato-direto">
+            <h3>Fale Conosco</h3>
+            <p>Tem alguma dúvida sobre nossos pacotes, convênios ou procedimentos especiais? Mande uma mensagem!</p>
+            <ul class="lista-contato-info">
+                <li><i class="fas fa-map-marker-alt"></i> Av. Governador José Malcher, Belém - PA</li>
+                <li><i class="fas fa-phone-alt"></i> (91) 3222-1234</li>
+                <li><i class="fas fa-envelope"></i> contato@petshopfeliz.com</li>
+            </ul>
+        </div>
+        <div class="formulario-contato-box">
+            <form id="formContato">
+                <div class="input-grupo-home">
+                    <label for="nome">Seu Nome</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+                </div>
+                <div class="input-grupo-home">
+                    <label for="email">Seu Email</label>
+                    <input type="email" id="email" placeholder="exemplo@email.com" required>
+                </div>
+                <div class="input-grupo-home">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea id="mensagem" placeholder="Como podemos ajudar você e seu pet?" required></textarea>
+                </div>
+                <button type="submit" class="btn-enviar-home">Enviar Mensagem <i class="fas fa-paper-plane"></i></button>
+            </form>
+            <p id="feedback" class="feedback-mensagem"></p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

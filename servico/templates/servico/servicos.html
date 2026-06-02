@@ -1,0 +1,45 @@
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nossos Serviços - PetShop Feliz{% endblock %}
+
+{% block content %}
+<section class="servicos-container">
+  <div class="servicos-header">
+    <h2>Nossos Serviços Premium</h2>
+    <p>Cuidado, carinho e profissionalismo que o seu melhor amigo merece.</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card-servico">
+      <div class="card-icon">
+        <i class="fa-solid fa-bath"></i>
+      </div>
+      <h3>Banho Completo</h3>
+      <p>Higienização profunda com produtos hipoalergênicos, secagem rápida e perfume suave especial para pets.</p>
+      <span class="preco">A partir de R$ 50,00</span>
+      <a href="{% url 'agendamento:agendamento' %}" class="btn-card">Agendar Agora</a>
+    </div>
+
+    <div class="card-servico">
+      <div class="card-icon">
+        <i class="fa-solid fa-scissors"></i>
+      </div>
+      <h3>Tosa Higiênica</h3>
+      <p>Corte preciso dos pelos das patas, barriga e regiões íntimas, garantindo o conforto e o bem-estar do seu pet.</p>
+      <span class="preco">A partir de R$ 45,00</span>
+      <a href="{% url 'agendamento:agendamento' %}" class="btn-card">Agendar Agora</a>
+    </div>
+
+    <div class="card-servico">
+      <div class="card-icon">
+        <i class="fa-solid fa-stethoscope"></i>
+      </div>
+      <h3>Consulta Veterinária</h3>
+      <p>Check-ups, orientações nutricionais e acompanhamento médico preventivo com profissionais dedicados.</p>
+      <span class="preco">A partir de R$ 120,00</span>
+      <a href="{% url 'agendamento:agendamento' %}" class="btn-card">Saber Mais</a>
+    </div>
+  </div>
+</section>
+{% endblock %} {% endcomment %}
