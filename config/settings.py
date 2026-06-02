@@ -141,18 +141,25 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Onde o Django busca os arquivos físicos durante o desenvolvimento
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+# Pasta onde o Django vai reunir todos os estáticos para a produção
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Configuração moderna para o Django 4.2, 5.x e 6.0+ gerenciar arquivos com WhiteNoise
 STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# Garante estabilidade se houver arquivos faltando referenciados no CSS
+WHITENOISE_MANIFEST_STRICT = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
