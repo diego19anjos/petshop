@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from pathlib import Path
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,13 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # O decouple vai buscar a chave no servidor. Se não achar, usa a sua local de teste.
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-suachavelocal...')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Desativa o modo de depuração na internet para ninguém ver seus erros de código
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Permite que o link gerado pelo Railway acesse o projeto
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 LOGIN_URL = 'login'
 
