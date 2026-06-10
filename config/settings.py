@@ -24,14 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # O decouple vai buscar a chave no servidor. Se não achar, usa a sua local de teste.
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY', default='chave-secreta-de-desenvolvimento-super-segura')
 
 # Desativa o modo de depuração na internet para ninguém ver seus erros de código
 DEBUG = config('DEBUG', default=True,cast=bool)
 
 # Permite que o link gerado pelo Railway acesse o projeto
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='http://localhost,http://127.0.0.1').split(',')
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'dashboard'
@@ -96,15 +96,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Substitua o seu bloco DATABASES por este:
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME', default='petshop_db'),
-        'USER': config('DB_USER', default='root'),
-        'PASSWORD': config('DB_PASSWORD', default='123456'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='3306'),
-    }
+    'default': config(
+        'DATABASE_URL',
+        default=f"mysql://{config('DB_USER','root')}:{config('DB_PASSWORD','123456')}@{config('DB_HOST','localhost')}:{config('DB_PORT','3306')}/{config('DB_NAME','petshop_db')}",
+        cast=dj_database_url.parse
+    )
 }
 
 
