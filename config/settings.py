@@ -19,19 +19,21 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-# O decouple vai buscar a chave no servidor. Se não achar, usa a sua local de teste.
+# ====================== SECURITY ======================
 SECRET_KEY = config('SECRET_KEY', default='chave-secreta-de-desenvolvimento-super-segura')
 
-# Desativa o modo de depuração na internet para ninguém ver seus erros de código
-DEBUG = config('DEBUG', default=False,cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-# Permite que o link gerado pelo Railway acesse o projeto
+# ====================== HOSTS ======================
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+
+if not DEBUG:
+    ALLOWED_HOSTS += ['.railway.app']
+
 CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='http://localhost,http://127.0.0.1').split(',')
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS += ['https://*.railway.app']
+
 LOGIN_URL = 'login'
 
 LOGIN_REDIRECT_URL = 'dashboard'
@@ -96,14 +98,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# Substitua o seu bloco DATABASES por este:
 DATABASES = {
-    'default': config(
-        'DATABASE_URL',
-        default=f"mysql://{config('DB_USER','root')}:{config('DB_PASSWORD','123456')}@{config('DB_HOST','localhost')}:{config('DB_PORT','3306')}/{config('DB_NAME','petshop_db')}",
-        cast=dj_database_url.parse
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        conn_health_checks=True,
     )
 }
+
+# Força SSL (obrigatório no Railway MySQL)
+if 'mysql' in DATABASES['default']['ENGINE']:
+    DATABASES['default']['OPTIONS'] = {
+        'ssl': {'ssl_mode': 'REQUIRED'}
+    }
 
 
 # Password validation
