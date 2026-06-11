@@ -99,18 +99,18 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
-
-# Força SSL (obrigatório no Railway MySQL)
-if 'mysql' in DATABASES['default']['ENGINE']:
-    DATABASES['default']['OPTIONS'] = {
-        'ssl': {'ssl_mode': 'REQUIRED'}
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
+        'OPTIONS': {
+            'ssl': {'ssl_mode': 'REQUIRED'}   # Obrigatório no Railway
+        },
     }
+}
 
 
 # Password validation
